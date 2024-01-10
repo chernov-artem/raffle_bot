@@ -11,7 +11,10 @@ class FSM_goods(StatesGroup):
 async def commands_start(message : types.Message):
     "функция старта"
     try:
-        await bot.send_message(message.from_user.id, 'Готов к работе', reply_markup=kb_client)
+        await bot.send_message(message.from_user.id, 'Привет!\nНаш бот готов помочь провести розыгрыш на\n'
+                                                     'канале. Для начала выберите в «Меню» один из\nчетырех видов'
+                                                     ' розыгрыша, затем жмите на кнопку\n'
+                                                     '«Создать розыгрыш»', reply_markup=kb_client2)
         await message.delete()
     except:
         await message.reply("Общение с ботов в ЛС.")

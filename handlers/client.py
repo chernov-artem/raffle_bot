@@ -7,14 +7,14 @@ from aiogram.types import ReplyKeyboardRemove
 
 class FSM_goods(StatesGroup):
     good = State()
+    step1 = State()
+    step2 = State()
+    step3 = State()
 
 async def commands_start(message : types.Message):
     "функция старта"
     try:
-        await bot.send_message(message.from_user.id, 'Привет!\nНаш бот готов помочь провести розыгрыш на\n'
-                                                     'канале. Для начала выберите в «Меню» один из\nчетырех видов'
-                                                     ' розыгрыша, затем жмите на кнопку\n'
-                                                     '«Создать розыгрыш»', reply_markup=kb_client2)
+        await bot.send_message(message.from_user.id, 'Привет! !! !', reply_markup=kb_client2)
         await message.delete()
     except:
         await message.reply("Общение с ботов в ЛС.")
@@ -34,9 +34,34 @@ async def load_good(message: types.Message, state: FSMContext):
     await bot.send_message(message.from_user.id, 'новый товар доступен')
     await state.finish()
 
+
+async def step1(message: types.Message, state: FSM_goods):
+    'функция шага 1'
+    await bot.send_message((message.from_user.id, 'шаг1 '))
+    await FSM_goods.step2
+    await message.reply('дальше ->')
+
+async def step2(message: types.Message, state: FSM_goods):
+    'функция шага 1'
+    await bot.send_message((message.from_user.id, 'шаг2 '))
+    await FSM_goods.next()
+    await message.reply('дальше ->')
+
+async def step3(message: types.Message, state: FSM_goods):
+    'функция шага 1'
+    await bot.send_message((message.from_user.id, 'шаг3 '))
+    await FSM_goods.next()
+    await message.reply('дальше ->')
+
+
+
+
 def register_handlers_client(dp: Dispatcher):
     dp.register_message_handler(commands_start, commands=['start'])
     dp.register_message_handler(cm_start, commands=['Загрузить'])
     dp.register_message_handler(load_good, state=FSM_goods.good)
+    dp.register_message_handler(step1, state=FSM_goods.good)
+    dp.register_message_handler(step2, state=FSM_goods.good)
+    dp.register_message_handler(step3, state=FSM_goods.good)
 
 

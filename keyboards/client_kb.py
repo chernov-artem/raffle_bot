@@ -6,6 +6,8 @@ button3 = KeyboardButton('/new_contest')
 button4 = KeyboardButton('/channels')
 button5 = KeyboardButton('/support')
 button6 = KeyboardButton('/pay')
+button7 = KeyboardButton('/cancel')
+
 
 kb_client = ReplyKeyboardMarkup(resize_keyboard=True)
 kb_client2 = ReplyKeyboardMarkup(resize_keyboard=True)
